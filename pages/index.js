@@ -26,7 +26,7 @@ export default function Home() {
     width: '640',
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
-      autoplay: 1,
+      autoplay: 0,
     },
   };
 
@@ -60,7 +60,6 @@ export default function Home() {
           <title>ChaoticDB Fallback - {query}</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-
 
         <InputContainer>
           <input value={inputQuery} onChange={(e) => setInputQuery(e.target.value)} onKeyPress={(e) => {return e.key.toUpperCase() === "ENTER" ? [setQuery(inputQuery), typeof window !== "undefined" ? window?.localStorage?.setItem('query', inputQuery) : null] : null;}}/>
