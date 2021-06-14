@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import VideoContainer from '../components/VideoContainer';
 
+import YouTube from 'react-youtube';
+
 import styles from '../styles/Home.module.css';
 import styled from 'styled-components';
 
@@ -51,21 +53,37 @@ export default function Home() {
     </div>
   );
 
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>ChaoticDB Fallback - {query}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+  try {
+    return (
+      <div className={styles.container}>
+        <Head>
+          <title>ChaoticDB Fallback - {query}</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <InputContainer>
-        <input value={inputQuery} onChange={(e) => setInputQuery(e.target.value)} onKeyPress={(e) => {return e.key.toUpperCase() === "ENTER" ? [setQuery(inputQuery), typeof window !== "undefined" ? window?.localStorage?.setItem('query', inputQuery) : null] : null;}}/>
-      </InputContainer>
-      <main className={styles.main}>
-        {data && data.map ? data.map(video => VideoContainer(video)) : "Nenhum vídeo encontrado"}  
-      </main>
-    </div>
-  )
+
+        <InputContainer>
+          <input value={inputQuery} onChange={(e) => setInputQuery(e.target.value)} onKeyPress={(e) => {return e.key.toUpperCase() === "ENTER" ? [setQuery(inputQuery), typeof window !== "undefined" ? window?.localStorage?.setItem('query', inputQuery) : null] : null;}}/>
+        </InputContainer>
+        <YouTube videoId={data[0]['id'] || "2g811Eo7K8U"} opts={opts} onReady={(event) => {event.target.pauseVideo()}} />
+        <main className={styles.main}>
+          {data && data.map ? data.map(video => VideoContainer(video)) : "Nenhum vídeo encontrado"}  
+        </main>
+      </div>
+    )
+  } catch (err) {
+    console.error(err);
+    return (
+      <div className={styles.container}>
+        <Head>
+          <title>Um erro ocorreu!</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+
+        <h1>Um erro ocorreu...</h1>
+      </div>
+    )
+  }
 }
 
 const InputContainer = styled.div`
