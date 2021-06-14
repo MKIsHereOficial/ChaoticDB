@@ -1,5 +1,4 @@
 # Chaotic Database
-
-## Projeto em NextJS
+Projeto em NextJS
 
 > Mais informações em breve
