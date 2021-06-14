@@ -65,7 +65,7 @@ export default function Home() {
         <InputContainer>
           <input value={inputQuery} onChange={(e) => setInputQuery(e.target.value)} onKeyPress={(e) => {return e.key.toUpperCase() === "ENTER" ? [setQuery(inputQuery), typeof window !== "undefined" ? window?.localStorage?.setItem('query', inputQuery) : null] : null;}}/>
         </InputContainer>
-        <YouTube videoId={data[0]['id'] || "2g811Eo7K8U"} opts={opts} onReady={(event) => {event.target.pauseVideo()}} />
+        <YouTube videoId={data[0]['id'] || "2g811Eo7K8U"} opts={opts} onReady={(event) => {console.dir(event.target)}} />
         <main className={styles.main}>
           {data && data.map ? data.map(video => VideoContainer(video)) : "Nenhum vídeo encontrado"}  
         </main>
